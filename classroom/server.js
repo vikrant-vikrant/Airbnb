@@ -7,6 +7,11 @@ app.use(cookieParser("SecretCode"));
 
 const session = require("express-session");//it will save the infomation of a session in cookie form
 
+const falsh = require("connect-flash");//module will show msg
+app.set("view engine","ejs");
+const path = require("path");
+app.set("views",path.join(__dirname,"views"));
+
 app.get("/getcookies",(req,res)=>{
   res.cookie("IronMan","i am TonyStark");//we can also add cookies mannually form consol
   res.cookie("greet","Namaste");
@@ -38,6 +43,7 @@ const sessionOptions = session({
   saveUninitialized:true
 });
 app.use(sessionOptions);
+app.use(falsh());
 
 app.get("/test",(req,res)=>{
   res.send("test successful");
@@ -57,11 +63,12 @@ app.get("/reqcount",(req,res)=>{
 app.get("/register",(req,res)=>{
   let {name="Anonymous"} = req.query;
   req.session.name = name;//this'll store the data
+  req.flash("success","User register Successfully");
   res.redirect("/hello");
 });
 
 app.get("/hello",(req,res)=>{
-  res.send(`Hello ${req.session.name}`)
+  res.render("page.ejs",{name:req.session.name, msg: req.flash("success")});
 })
 
 app.listen(3000,()=>{
