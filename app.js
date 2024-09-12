@@ -5,6 +5,7 @@ const path = require("path");
 const methodOverride = require("method-override")
 const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
+const session = require("express-session");
 
 const listings = require("./routes/listing.js");
 const reviews = require("./routes/review.js");
@@ -26,6 +27,12 @@ async function main() {
   await mongoose.connect(MONGO_URL);
 };
 
+const sessionOptions = {
+  secret: "mysupersecretcode",
+  resave: false,
+  saveUninitializ:true,
+};
+app.use(session(sessionOptions));
 app.use("/listings",listings);
 app.use("/listings/:id/reviews",reviews);
 

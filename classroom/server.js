@@ -59,16 +59,26 @@ app.get("/reqcount",(req,res)=>{
   res.send(`You sent a request ${req.session.count} times`);
 });
 
+app.use((req,res,next)=>{
+  res.locals.suc = req.flash("success");
+  res.locals.err = req.flash("error");
+  next();
+});
+
 //storing $ using session info
 app.get("/register",(req,res)=>{
   let {name="Anonymous"} = req.query;
   req.session.name = name;//this'll store the data
-  req.flash("success","User register Successfully");
+  if(name === "Anonymous"){
+    req.flash("error","User not registered");
+  }else{
+    req.flash("success","User register Successfully");
+  }
   res.redirect("/hello");
 });
 
 app.get("/hello",(req,res)=>{
-  res.render("page.ejs",{name:req.session.name, msg: req.flash("success")});
+  res.render("page.ejs",{name:req.session.name});
 })
 
 app.listen(3000,()=>{
