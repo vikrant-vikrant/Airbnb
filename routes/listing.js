@@ -36,6 +36,7 @@ router.get("/:id", async (req, res) => {
 router.post("/",validateListing,async (req,res,next)=>{
   const newListing = new Listing(req.body.listing);
     await newListing.save();
+    req.flash("success","New listing Created");
     res.redirect("/listings");
 });
 //edit route
