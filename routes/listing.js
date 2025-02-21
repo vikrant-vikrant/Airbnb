@@ -5,7 +5,6 @@ const ExpressError = require("../utils/ExpressError.js");
 const { listingSchema } = require("../schema.js");
 const Listing = require("../models/listing.js");
 const { isLoggedIn } = require("../middleware.js");
-const isLoggedIn = require("../middleware.js")
 
 const validateListing = (req, res, next) => {
   let { error } = listingSchema.validate(req.body);
@@ -23,7 +22,6 @@ router.get("/", async (req, res) => {
 });
 //new route
 router.get("/new",isLoggedIn, (req, res) => {
-
   res.render("listings/new.ejs");
 });
 //show route
@@ -38,7 +36,7 @@ router.get("/:id", async (req, res) => {
   res.render("listings/show.ejs", { listing });
 });
 //create route
-router.post("/", validateListing, async (req, res, next) => {
+router.post("/",isLoggedIn, validateListing, async (req, res, next) => {
   const newListing = new Listing(req.body.listing);
   await newListing.save();
   req.flash("success", "New listing Created");
@@ -46,7 +44,7 @@ router.post("/", validateListing, async (req, res, next) => {
 });
 //edit route
 //photo is not sowing up properlly after editing
-router.get("/:id/edit", async (req, res) => {
+router.get("/:id/edit",isLoggedIn, async (req, res) => {
   let { id } = req.params;
   const listing = await Listing.findById(id);
   if (!listing) {
@@ -60,7 +58,7 @@ router.get("/:id/edit", async (req, res) => {
   res.render("listings/edit.ejs", { listing });
 });
 //update route
-router.put("/:id", validateListing, async (req, res) => {
+router.put("/:id",isLoggedIn, validateListing, async (req, res) => {
   const { id } = req.params;
   await Listing.findByIdAndUpdate(id, { ...req.body.listing });
   req.flash("success","Listing updated!");
@@ -69,7 +67,7 @@ router.put("/:id", validateListing, async (req, res) => {
 });
 //delete route
 //unable to delete all reviews of listing from dbs
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", isLoggedIn,async (req, res) => {
   let { id } = req.params;
   const deletedListing = await Listing.findByIdAndDelete(id);
   if (!deletedListing) {
