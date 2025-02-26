@@ -1,20 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const wrapAsync = require("../utils/wrapAsync");
-const ExpressError = require("../utils/ExpressError.js");
-const { listingSchema } = require("../schema.js");
 const Listing = require("../models/listing.js");
-const { isLoggedIn } = require("../middleware.js");
-
-const validateListing = (req, res, next) => {
-  let { error } = listingSchema.validate(req.body);
-  if (error) {
-    let errMsg = error.details.map((el) => el.message).join(",");
-    throw new ExpressError(400, errMsg);
-  } else {
-    next();
-  }
-};
+const { isLoggedIn, isOwner, validateListing } = require("../middleware.js");
 //Index route
 router.get("/", async (req, res) => {
   const allListing = await Listing.find({});
@@ -48,34 +36,24 @@ router.post("/", isLoggedIn, validateListing, async (req, res, next) => {
 });
 //edit route
 //photo is not sowing up properlly after editing
-router.get("/:id/edit", isLoggedIn, async (req, res) => {
+router.get("/:id/edit", isLoggedIn, isOwner, async (req, res) => {
   let { id } = req.params;
   const listing = await Listing.findById(id);
   if (!listing) {
     req.flash("error", "Listing you requested for does not exist");
     res.redirect("/listings");
   }
-  // if (!listing) {
-  //   const { statusCode = 500, message = "Something went wrong" } = err;
-  //   res.status(statusCode).render("error.ejs", { message });
-  // }
   res.render("listings/edit.ejs", { listing });
 });
 //update route
-router.put("/:id", isLoggedIn, validateListing, async (req, res) => {
-  const { id } = req.params;
-  let listing = await Listing.findById(id);
-  if (!listing.owner._id.equals(res.locals.currUser._id)) {
-    req.flash("error", "You dont't have permission to edit");
-    return res.redirect(`/listings/${id}`);
-  }
+router.put("/:id", isLoggedIn, isOwner, validateListing, async (req, res) => {
   await Listing.findByIdAndUpdate(id, { ...req.body.listing });
   req.flash("success", "Listing updated!");
   res.redirect(`/listings/${id}`);
 });
 //delete route
 //unable to delete all reviews of listing from dbs
-router.delete("/:id", isLoggedIn, async (req, res) => {
+router.delete("/:id", isLoggedIn, isOwner, async (req, res) => {
   let { id } = req.params;
   const deletedListing = await Listing.findByIdAndDelete(id);
   if (!deletedListing) {
