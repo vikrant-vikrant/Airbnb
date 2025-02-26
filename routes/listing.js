@@ -23,7 +23,6 @@ router.get("/:id", async (req, res) => {
     res.redirect("/listings");
     // throw new ExpressError(404, "Listing not found");
   }
-  // console.log(listing);
   res.render("listings/show.ejs", { listing });
 });
 //create route

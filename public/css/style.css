@@ -59,18 +59,17 @@
   align-items: center;
 }
 .f-info-socials i{
-  font-size: 1.2rem;
+  font-size: 2rem;
   margin-left: 1rem;
 }
 .f-info{
   display: flex;
-  height: 8rem;
+  height: 6rem;
   background-color: #ebebeb;
-  flex-wrap: wrap;
   justify-content: center;
   align-items: space-evenly;
   text-align: center;
-
+  bottom: 0;
 }
 /* cards */
 .listing-card{
@@ -90,7 +89,7 @@
 }
 .card-text{
   font-weight: 400 !important;
-  font-size: 1.1rem !important;
+  font-size: 1.3rem !important;
   margin-left: 1rem;
   margin-top: .5rem;
 }
