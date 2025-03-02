@@ -7,6 +7,7 @@
 }
 .container{
   flex:1;
+  min-height: calc(100vh - 11rem);
 }
 /* mainpage */
 .heading{
@@ -34,14 +35,10 @@
   margin-left: 2rem;
   margin: 1rem;
 }
-/* .navbar-nav{
-} */
 /* footer */
-/* footer{
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-} */
+.footer{
+  height: 6rem;
+}
 .f-info-links a{
   text-decoration: none;
   color: #222222;
@@ -53,14 +50,15 @@
 .f-info-links,
 .f-info-socials,
 .f-info-brand{
+  font-size: 1.5rem;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .f-info-socials i{
+  margin-left: 2rem;
   font-size: 2rem;
-  margin-left: 1rem;
 }
 .f-info{
   display: flex;
