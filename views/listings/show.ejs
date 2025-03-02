@@ -41,22 +41,53 @@
     >
       <div class="mb-3 mt-3">
         <label for="rating" class="form-label form-range">Rating</label>
-        <input type="range" name="review[rating]" id="rating" min="1" max="5" />
+        <fieldset class="starability-checkmark">
+          <input
+            type="radio"
+            id="no-rate"
+            class="input-no-rate"
+            name="review[rating]"
+            value="1"
+            checked
+            aria-label="No rating."
+          />
+          <input
+            type="radio"
+            id="first-rate1"
+            name="review[rating]"
+            value="1"
+          />
+          <label for="first-rate1" title="Terrible">1 star</label>
+          <input
+            type="radio"
+            id="first-rate2"
+            name="review[rating]"
+            value="2"
+          />
+          <label for="first-rate2" title="Not good">2 stars</label>
+          <input
+            type="radio"
+            id="first-rate3"
+            name="review[rating]"
+            value="3"
+          />
+          <label for="first-rate3" title="Average">3 stars</label>
+          <input
+            type="radio"
+            id="first-rate4"
+            name="review[rating]"
+            value="4"
+          />
+          <label for="first-rate4" title="Very good">4 stars</label>
+          <input
+            type="radio"
+            id="first-rate5"
+            name="review[rating]"
+            value="5"
+          />
+          <label for="first-rate5" title="Amazing">5 stars</label>
+        </fieldset>
       </div>
-      <fieldset class="starability-checkmark">
-        <legend>First rating:</legend>
-        <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked aria-label="No rating." />
-        <input type="radio" id="first-rate1" name="rating" value="1" />
-        <label for="first-rate1" title="Terrible">1 star</label>
-        <input type="radio" id="first-rate2" name="rating" value="2" />
-        <label for="first-rate2" title="Not good">2 stars</label>
-        <input type="radio" id="first-rate3" name="rating" value="3" />
-        <label for="first-rate3" title="Average">3 stars</label>
-        <input type="radio" id="first-rate4" name="rating" value="4" />
-        <label for="first-rate4" title="Very good">4 stars</label>
-        <input type="radio" id="first-rate5" name="rating" value="5" />
-        <label for="first-rate5" title="Amazing">5 stars</label>
-      </fieldset>
       <div class="mb-3 mt-3">
         <label for="comment" class="form-label">Comments</label>
         <textarea
@@ -78,8 +109,11 @@
       <div class="card mb-3 col-5 ms-3">
         <div class="card-body">
           <h5 class="card-title mt-2">Vikrant</h5>
+          <p
+            class="starability-result card-text"
+            data-rating="<%=review.rating%>"
+          ></p>
           <p class="card-text"><%=review.comment%></p>
-          <p class="card-text"><%=review.rating%> Stars</p>
           <form
             class="mb-3"
             method="post"
