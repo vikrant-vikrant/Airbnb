@@ -17,7 +17,7 @@ router
   .get(async (req, res) => {
     const { id } = req.params;
     const listing = await Listing.findById(id)
-      .populate("reviews")
+      .populate({ path: "reviews", populate: { path: "author" } })
       .populate("owner");
     if (!listing) {
       req.flash("error", "Listing you requested for does not exist");
@@ -26,7 +26,7 @@ router
     res.render("listings/show.ejs", { listing });
   })
   .delete(isLoggedIn, isOwner, listingController.destroyListing);
-  
+
 router
   .route("/:id/edit")
   .get(isLoggedIn, listingController.renderEditForm)
