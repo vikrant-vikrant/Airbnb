@@ -352,31 +352,13 @@ const sampleListings = [
     description:
       "Place to be calm and being sprichual ",
     image: {
+      filename: "listingimage",
       url: "https://www.chardham-pilgrimage-tour.com/assets/images/top-tourist-places-enroute-kedarnath-dham.webp",
     },
     price: 1900,
     location: "Uttrakhand",
     country: "India",
   },
-  {
-    title: "without url",
-    description:
-      "Place to be calm and being sprichual ",
-    price: 1900,
-    location: "Rajasthan",
-    country: "India",
-  },
-  {
-    title: "blank url",
-    description:"Place to be calm",
-    image:{
-      url:"",
-    },
-    price: 1900,
-    location: "Kerala",
-    country: "India",
-  },
-
 ];
 
 module.exports = { data: sampleListings };
