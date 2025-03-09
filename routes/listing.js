@@ -13,11 +13,11 @@ router
   .get(listingController.index)
   .post(
     isLoggedIn,
-    upload.single("listing[image]",
+    upload.single("listing[image]"),
     validateListing,
-    listingController.createListing)
+    listingController.createListing
   );
-
+  
 router.get("/new", isLoggedIn, listingController.renderNewForm);
 
 router

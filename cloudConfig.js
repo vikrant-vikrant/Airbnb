@@ -1,4 +1,5 @@
 const cloudinary = require("cloudinary").v2;
+const { model } = require("mongoose");
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 
 cloudinary.config({
@@ -11,7 +12,7 @@ const storage = new CloudinaryStorage({
   cloudinary: cloudinary,
   params: {
     folder: "wanderlust_DEV",
-    allowerdFormats: ["png", "jpg", "jpeg"],
+    allowedFormats: ["png", "jpeg", "jpg"],
   },
 });
 
