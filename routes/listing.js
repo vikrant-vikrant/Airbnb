@@ -17,10 +17,7 @@ router
     validateListing,
     listingController.createListing
   );
-  // .post(isLoggedIn, upload.single("listing[image]"), (req, res) => {
-  //   res.send(req.file);
-  // });
-
+  
 router.get("/new", isLoggedIn, listingController.renderNewForm);
 
 router
