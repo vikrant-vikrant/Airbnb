@@ -17,22 +17,19 @@ router
     validateListing,
     listingController.createListing
   );
-  
+
 router.get("/new", isLoggedIn, listingController.renderNewForm);
 
 router
   .route("/:id")
-  .get(async (req, res) => {
-    const { id } = req.params;
-    const listing = await Listing.findById(id)
-      .populate({ path: "reviews", populate: { path: "author" } })
-      .populate("owner");
-    if (!listing) {
-      req.flash("error", "Listing you requested for does not exist");
-      res.redirect("/listings");
-    }
-    res.render("listings/show.ejs", { listing });
-  })
+  .get(listingController.showListing)
+  .put(
+    isLoggedIn,
+    isOwner,
+    upload.single("listing[image]"),
+    validateListing,
+    wrapAsync(listingController.updateListing)
+  )
   .delete(isLoggedIn, isOwner, listingController.destroyListing);
 
 router
