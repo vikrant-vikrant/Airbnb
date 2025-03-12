@@ -105,9 +105,9 @@
       </div>
       <button class="btn btn-outline-dark">Submit</button>
     </form>
-    <%}%>
-    <hr />
+    <%}%> <% if(listing.reviews.length > 0){ %>
     <div class="row">
+      <hr class="mt-5" />
       <h4 class="mb-3"><b>Reviews</b></h4>
       <% for(let review of listing.reviews) {%>
       <div class="card mb-3 col-5 ms-3">
@@ -129,5 +129,11 @@
       </div>
       <%}%>
     </div>
+    <%}%>
+  </div>
+  <div class="col-8 offset-3 mb-3">
+    <h3>Where you'll be</h3>
+    <div id="map"></div>
   </div>
 </div>
+<script src="/js/map.js"></script>

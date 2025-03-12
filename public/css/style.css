@@ -134,3 +134,8 @@
   padding-left: 0;
   padding-right: 0;
 }
+/* MAP */
+#map{
+  width: 90vh;
+  height: 50vh;
+}
