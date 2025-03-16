@@ -29,14 +29,19 @@ module.exports.createListing = async (req, res, next) => {
     query: req.body.listing.location,
     limit: 1,
   });
-  console.log(response.results[0].position);
-  res.send("done");
+  if (!response.results.length) {
+    req.flash("error", "Location not found. Please enter a valid address.");
+    return res.redirect("/listings/new");
+  }
+  let { lng, lat } = response.results[0].position;
   let url = req.file.path;
   let filename = req.file.filename;
   const newListing = new Listing(req.body.listing);
   newListing.owner = req.user._id;
   newListing.image = { url, filename };
-  await newListing.save();
+  newListing.position = { type: "Point", coordinates: [lng, lat] };
+  let saveListing = await newListing.save();
+  console.log(saveListing);
   req.flash("success", "New listing Created");
   res.redirect("/listings");
 };
