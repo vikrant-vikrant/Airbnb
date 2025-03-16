@@ -2,6 +2,7 @@
 <script>
   let mapToken = `<%= process.env.MAP_TOKEN%>`;
   let styleID = `<%= process.env.STYLE_ID%>`;
+  let coordinates = <%- JSON.stringify(listing.position.coordinates)%>;
 </script>
 <div class="row">
   <div class="col-8 offset-3 mt-3 showtitle">
