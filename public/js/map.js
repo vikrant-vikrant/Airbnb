@@ -5,5 +5,5 @@ const map = new maplibregl.Map({
   container: "map",
   style: url,
   center: coordinates,
-  zoom: 9,
+  zoom: 12,
 });

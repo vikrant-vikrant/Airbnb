@@ -17,7 +17,7 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
         <a
-          title="Home"
+          title="Explore"
           class="nav-link active"
           aria-current="page"
           href="/listings"
@@ -26,23 +26,39 @@
         <a title="All Listing" class="nav-link opt" href="/listings"
           ><i class="fa-solid fa-location-dot"></i
         ></a>
-        <a title="Add new Listing" class="nav-link opt" href="/listings/new"
+      </div>
+      <div class="navbar-nav ms-auto">
+        <form class="d-flex" role="search">
+          <input
+            class="form-control me-2 search-inp"
+            type="search"
+            placeholder="Search destination"
+          />
+          <button class="btn search-btn" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>Search
+          </button>
+        </form>
+      </div>
+      <div class="navbar-nav ms-auto">
+        <a
+          title="WanderLust your home"
+          class="nav-link opt"
+          href="/listings/new"
           ><i class="fa-solid fa-plus"></i
         ></a>
-      </div>
-
-      <div class="navbar-nav ms-auto">
         <% if(!currUser){ %>
         <a
           title="Home"
-          class="nav-link active"
+          class="nav-link active login-out"
           aria-current="page"
           href="/signup"
           >Signup</a
         >
-        <a title="All Listing" class="nav-link opt" href="/login">Login</a>
+        <a title="All Listing" class="nav-link opt login-out" href="/login"
+          >Login</a
+        >
         <%}%> <% if(currUser){ %>
-        <a title="Add new Listing" class="nav-link opt" href="/logout"
+        <a title="Add new Listing" class="nav-link opt login-out" href="/logout"
           >Logout</a
         >
         <%}%>
