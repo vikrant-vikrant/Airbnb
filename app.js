@@ -1,6 +1,7 @@
-if (process.env.NODE_ENV != "production") {
-  require("dotenv").config();
-}
+// if (process.env.NODE_ENV != "production") {
+//   require("dotenv").config();
+// }
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -51,18 +52,18 @@ const store = MongoStore.create({
 store.on("error", () => {
   console.log("ERROR in MONGO SESSTION STORE", err);
 });
-const sessionOptions = {
-  store,
-  secret: process.env.SECRET,
-  resave: false,
-  saveUninitializ: true,
-  Cookie: {
-    expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
-    maxAge: 7 * 24 * 60 * 60 * 1000,
-    httpOnly: true,
-  },
-};
-app.use(session(sessionOptions));
+// const sessionOptions = {
+//   store,
+//   secret: process.env.SECRET,
+//   resave: false,
+//   saveUninitializ: true,
+//   Cookie: {
+//     expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+//     maxAge: 7 * 24 * 60 * 60 * 1000,
+//     httpOnly: true,
+//   },
+// };
+// app.use(session(sessionOptions));
 app.use(flash());
 
 app.use(passport.initialize());
