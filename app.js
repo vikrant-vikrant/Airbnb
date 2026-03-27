@@ -45,25 +45,25 @@ async function main() {
 const store = MongoStore.create({
   mongoUrl: dbUrl,
   crypto: {
-    secret: process.env.SECRET,
+    secret: "mysupersecretcode",
   },
   touchAfter: 24 * 3600,
 });
 store.on("error", () => {
   console.log("ERROR in MONGO SESSTION STORE", err);
 });
-// const sessionOptions = {
-//   store,
-//   secret: process.env.SECRET,
-//   resave: false,
-//   saveUninitializ: true,
-//   Cookie: {
-//     expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
-//     maxAge: 7 * 24 * 60 * 60 * 1000,
-//     httpOnly: true,
-//   },
-// };
-// app.use(session(sessionOptions));
+const sessionOptions = {
+  store,
+  secret: "mysupersecretcode",
+  resave: false,
+  saveUninitializ: true,
+  Cookie: {
+    expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+  },
+};
+app.use(session(sessionOptions));
 app.use(flash());
 
 app.use(passport.initialize());

@@ -1,7 +1,6 @@
 const cloudinary = require("cloudinary").v2;
 const { model } = require("mongoose");
-const CloudinaryStorage =
-  require("multer-storage-cloudinary").CloudinaryStorage;
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
